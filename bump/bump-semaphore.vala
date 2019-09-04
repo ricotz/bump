@@ -64,7 +64,7 @@ namespace Bump {
           this.claims--;
           this.cond.signal ();
         } else {
-          GLib.critical ("Unlocked a %s with 0 claims", this.get_type ().name ());
+          GLib.info ("Unlocked a %s with 0 claims", this.get_type ().name ());
         }
       } finally {
         this.mutex.unlock ();
@@ -178,7 +178,6 @@ namespace Bump {
 
           return false;
         }, priority, cancellable);
-      mut.lock ();
     }
 
     /**

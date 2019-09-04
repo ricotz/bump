@@ -145,7 +145,6 @@ namespace Bump {
           mutex.unlock ();
           return false;
         }, priority, cancellable);
-      mutex.lock ();
 
       return func ();
     }
