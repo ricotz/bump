@@ -1,5 +1,7 @@
 include $(top_srcdir)/Makefile.decl
 
+SUBDIRS = tests
+
 NULL = 
 
 CLEANFILES =

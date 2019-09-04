@@ -1,6 +1,6 @@
 include $(top_srcdir)/Makefile.decl
 
-noinst_PROGRAMS = $(TEST_PROGS)
+check_PROGRAMS = $(TEST_PROGS)
 
 LDADD = \
 	$(top_builddir)/bump/libbump@BUMP_API_VERSION@.la \
