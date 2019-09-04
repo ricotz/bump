@@ -14,7 +14,7 @@ private void test_task_queue_location () {
         queue.execute<void*> (() => {
             unowned GLib.Thread<void*> current_thread = GLib.Thread.self<void*> ();
             GLib.assert (base_thread == current_thread);
-            tests_remaining--;
+            GLib.AtomicInt.dec_and_test (ref tests_remaining);
             return null;
           });
         break;
@@ -22,7 +22,7 @@ private void test_task_queue_location () {
         queue.execute_background<void*> (() => {
             unowned GLib.Thread<void*> current_thread = GLib.Thread.self<void*> ();
             GLib.assert (base_thread != current_thread);
-            tests_remaining--;
+            GLib.AtomicInt.dec_and_test (ref tests_remaining);
             return null;
           }, GLib.Priority.DEFAULT, null, (obj, res) => {
             unowned GLib.Thread<void*> current_thread = GLib.Thread.self<void*> ();
@@ -33,7 +33,7 @@ private void test_task_queue_location () {
         queue.execute_async<void*> (() => {
             unowned GLib.Thread<void*> current_thread = GLib.Thread.self<void*> ();
             GLib.assert (base_thread == current_thread);
-            tests_remaining--;
+            GLib.AtomicInt.dec_and_test (ref tests_remaining);
             return null;
           }, GLib.Priority.DEFAULT, null, (obj, res) => {
             unowned GLib.Thread<void*> current_thread = GLib.Thread.self<void*> ();
@@ -50,7 +50,7 @@ private void test_task_queue_location () {
 
   loop.run ();
 
-  GLib.assert (tests_remaining == 0);
+  GLib.assert (GLib.AtomicInt.get (ref tests_remaining) == 0);
 }
 
 /**
@@ -65,7 +65,7 @@ private void test_task_queue_background () {
   for ( int i = 0 ; i < total_tasks ; i++ ) {
     queue.add (() => {
         GLib.Thread.usleep ((long) GLib.TimeSpan.MILLISECOND * 50);
-        tasks_remaining--;
+        GLib.AtomicInt.dec_and_test (ref tasks_remaining);
 
         return false;
       });
@@ -78,7 +78,7 @@ private void test_task_queue_background () {
 
   loop.run ();
 
-  GLib.assert (tasks_remaining == 0);
+  GLib.assert (GLib.AtomicInt.get (ref tasks_remaining) == 0);
 }
 
 public GLib.MainLoop loop;

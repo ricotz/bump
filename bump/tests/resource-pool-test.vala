@@ -113,8 +113,8 @@ private void test_resource_pool_max_resources () {
 
   loop.run ();
 
-  GLib.assert (active == 0);
-  GLib.assert (completed == iterations);
+  GLib.assert (GLib.AtomicInt.get (ref active) == 0);
+  GLib.assert (GLib.AtomicInt.get (ref completed) == iterations);
 }
 
 public GLib.MainLoop loop;

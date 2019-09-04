@@ -52,8 +52,8 @@ private void test_semaphore_counting () {
 
   loop.run ();
 
-  GLib.assert (active == 0);
-  GLib.assert (remaining == 0);
+  GLib.assert (GLib.AtomicInt.get (ref active) == 0);
+  GLib.assert (GLib.AtomicInt.get (ref remaining) == 0);
 }
 
 private GLib.MainLoop loop;
