@@ -44,14 +44,11 @@ namespace Bump {
       }
     }
 
-    private static int lock_cnt = 0;
-
     /**
      * {@inheritDoc}
      */
     public override unowned T acquire (int priority = GLib.Priority.DEFAULT, GLib.Cancellable? cancellable = null) throws GLib.Error {
       if ( this._value == null ) {
-        GLib.AtomicInt.add (ref lock_cnt, 1);
         this.sem.lock ();
 
         try {
