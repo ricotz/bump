@@ -113,7 +113,7 @@ namespace Bump {
      */
     public signal void consumer_shortage ();
 
-    public AsyncPriorityQueue (owned GLib.CompareDataFunc? compare_func = null) {
+    public AsyncPriorityQueue (owned GLib.CompareDataFunc<G>? compare_func = null) {
       base ((owned) compare_func);
     }
   }
